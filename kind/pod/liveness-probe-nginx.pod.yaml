@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-nginx
+  labels:
+    app: nginx
+    rel: stable
+spec:
+  containers:
+    - name: my-nginx
+      image: nginx:alpine
+      ports:
+        - containerPort: 80
+      # If container fails liveness probe, it gets restarted automatically. 
+      # Check events in kubectl describe pod <pod-name> 
+      livenessProbe: 
+        httpGet:
+          path: /index.html
+          port: 80
+        initialDelaySeconds: 5
+        periodSeconds: 5
+        timeoutSeconds: 2
+        failureThreshold: 1 
