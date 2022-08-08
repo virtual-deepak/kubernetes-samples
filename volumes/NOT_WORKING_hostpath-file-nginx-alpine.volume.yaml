@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-alpine
+  labels:
+    app: my-alpine
+spec:
+  containers:
+    - name: my-alpine
+      image: alpine
+      command: ["/bin/sh", "-c"]
+      args:
+        - while true; do date >> /my-vol/heartbeat.txt;sleep 5; done #script which updates date to html every 5s
+      volumeMounts:
+        - mountPath: /my-vol
+          name: heartbeat-file
+  volumes:
+    - name: heartbeat-file
+      hostPath:
+        # path: "/host_mnt/c/TFS/share/heartbeat.txt"
+        path: /var/lib/docker/volumes/somevol/_data/heartbeat.txt
+        type: File
+      
