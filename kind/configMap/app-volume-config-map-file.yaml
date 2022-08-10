@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app-volume-config-map-file
+spec:
+  containers:
+    - name: app-volume-config-map-file
+      image: deepagarwal/config-map-app
+      ports:
+        - containerPort: 80
+      # Will create each key as a separate file under /etc/config      
+      volumeMounts:
+        - mountPath: /etc/config
+          name: app-volume-config-map 
+  volumes:
+    - name: app-volume-config-map
+      configMap:
+        name: config-map-file

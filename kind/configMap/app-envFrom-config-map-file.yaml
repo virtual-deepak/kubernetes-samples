@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app-config-map-file
+spec:
+  containers:
+    - name: app-config-map-file
+      image: deepagarwal/config-map-app
+      ports:
+        - containerPort: 80
+      # envFrom gets all the environment variables in one go
+      envFrom:
+        - configMapRef:
+            name: config-map-file

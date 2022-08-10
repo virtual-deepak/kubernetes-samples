@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app-settings-file
+spec:
+  containers:
+    - name: app-settings-file
+      image: deepagarwal/config-map-app
+      ports:
+        - containerPort: 80
+      # envFrom gets all the environment variables in one go
+      envFrom:
+        - configMapRef:
+            # Run this before "kubectl create configmap settings-file --from-file=settings.config"
+            name: settings-file

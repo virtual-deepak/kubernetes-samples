@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app-settings-env-file
+spec:
+  containers:
+    - name: app-settings-env-file
+      image: deepagarwal/config-map-app
+      ports:
+        - containerPort: 80
+      
+      # env loads individual environment variables
+      env:
+        # Option 1: Get the config key value from config map
+        - name: enemies
+          valueFrom:
+            configMapKeyRef:
+              name: settings-env-file
+              key: enemies
+        # Option 2: Assign the value directly
+        # If same key is present in configMap, this explcitly declared one will overwrite
+        - name: lives
+          value: "10"
+        
+      # envFrom gets all the environment variables in one go
+      envFrom:
+        - configMapRef:
+            # Run this before "kubectl create configmap settings-env-file --from-env-file=settings.env"
+            name: settings-env-file
