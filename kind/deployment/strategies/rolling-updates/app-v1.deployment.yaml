@@ -5,6 +5,15 @@ metadata:
   labels:
     app: py-app
 spec:
+  replicas: 4
+  minReadySeconds: 1 # Default 0
+  progressDeadlineSeconds: 60 # Default 600s
+  revisionHistoryLimit: 5 # Default 10
+  strategy:
+    type: RollingUpdate # Default
+    rollingUpdate:
+      maxSurge: 1 # Default 25%
+      maxUnavailable: 1 # Default 25%
   selector:
     matchLabels:
       app: py-app
