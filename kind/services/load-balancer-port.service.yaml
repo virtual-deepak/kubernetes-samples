@@ -7,5 +7,5 @@ spec:
   selector:
     app: my-nginx # must match label of the pod
   ports:
-    - port: 80
+    - port: 8080
       targetPort: 80

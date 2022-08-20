@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-nginx
+  labels:
+    app: my-nginx
+spec:
+  initContainers:
+    - name: init-my-nginx
+      image: alpine
+      command: ["sh", "-c", "until nslookup my-service.default.svc.cluster.local; do echo waiting for my-serivce; 
+        sleep 1; done; echo my-service is up!"]
+  containers:
+    - name: my-nginx
+      image: nginx
+      ports:
+        - containerPort: 80
