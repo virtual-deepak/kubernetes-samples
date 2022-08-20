@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-alpine-pod
+spec:
+  containers:
+    - name: my-alpine-container
+      image: alpine
+      command:
+       - /bin/bash
+       - "-c"
+       - "sleep 60m"
+      volumeMounts:
+        - mountPath: /data
+          name: my-pod-vol
+  volumes:
+    - name: my-pod-vol
+      persistentVolumeClaim:
+        claimName: my-persistent-volume-claim
+      
