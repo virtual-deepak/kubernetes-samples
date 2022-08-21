@@ -8,6 +8,7 @@ spec:
   initContainers:
     - name: init-my-nginx
       image: alpine
+      # With docker-desktop, the service will be of name <your-service>.<namespace>.svc.cluster.local
       command: ["sh", "-c", "until nslookup my-service.default.svc.cluster.local; do echo waiting for my-serivce; 
         sleep 1; done; echo my-service is up!"]
   containers:

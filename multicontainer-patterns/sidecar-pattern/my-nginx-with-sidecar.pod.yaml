@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-web-app
+  labels:
+    app: my-web-app
+spec:
+  containers:
+    - name: my-web-app
+      image: nginx
+      volumeMounts:
+        - mountPath: /usr/share/nginx
+          name: html
+    - name: my-git-sync-sidecar
+      image: k8s.gcr.io/git-sync:v3.1.5
+      volumeMounts:
+        - mountPath: /tmp/git
+          name: html
+      env:
+        - name: GIT_SYNC_REPO
+          value: https://github.com/virtual-deepak/k8s-sidecar-sync
+        - name: GIT_SYNC_BRANCH
+          value: master
+        - name: GIT_SYNC_DEPTH
+          value: "1"
+        - name: GIT_SYNC_DEST
+          value: "html"
+  volumes:
+    - name: html
+      emptyDir: {}
