@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ambassador-web-app
+  labels:
+   app: ambassador-web-app
+spec:
+  containers:
+    - name: ambassador-web-app
+      image: deepagarwal/ambassador-sidecar-pattern
+      ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ambassador-service
+  labels:
+   app: ambassador-service
+spec:
+  selector:
+    app: ambassador-web-app
+  type: LoadBalancer
+  ports:
+    - port: 8080
+      targetPort: 80
