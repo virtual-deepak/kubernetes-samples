@@ -1,4 +1,4 @@
-# Learning Kubernetes
+# Learning Kubernetes made simple
 
 Learning journey and experimenting with various aspects of Kubernetes. Contains "less scary" sample applications to drive home the conceptual understanding in the simplest possible way I could. 
 
